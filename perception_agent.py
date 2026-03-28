@@ -1,17 +1,16 @@
-import numpy as np
 from collections import deque
 
 class PerceptionAgent:
     def __init__(self):
-        self.history = deque(maxlen=10)
+        self.history = deque(maxlen=5)
 
     def classify(self, variance, z_score):
         self.history.append(z_score)
-        if len(self.history) < 3:
+        if len(self.history) < 2:
             return "CLEAR"
-        recent_max = max(self.history)
-        if recent_max > 2.5:
+        peak = max(self.history)
+        if peak > 2.0:
             return "ANOMALY"
-        elif recent_max > 1.2:
+        elif peak > 1.0:
             return "MOTION"
         return "CLEAR"

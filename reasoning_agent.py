@@ -1,7 +1,7 @@
 from collections import deque
 
 class ReasoningAgent:
-    def __init__(self, window_size=5):
+    def __init__(self, window_size=3):
         self.window = deque(maxlen=window_size)
         self.weights = {"CLEAR": 0.0, "MOTION": 0.3, "ANOMALY": 1.0}
 
@@ -14,15 +14,15 @@ class ReasoningAgent:
         return sum(self.weights[w] for w in self.window) / len(self.window)
 
     def get_confirmed_state(self):
-        if len(self.window) < 5:
+        if len(self.window) < 3:
             return "CLEAR", 0.0
         risk = self.compute_risk_score()
-        if risk >= 0.70:
+        if risk >= 0.60:
             return "CRITICAL", risk
-        elif risk >= 0.50:
+        elif risk >= 0.40:
             return "EMERGENCY", risk
-        elif risk >= 0.25:
+        elif risk >= 0.20:
             return "PRE_ESCALATION", risk
-        elif risk >= 0.10:
+        elif risk >= 0.08:
             return "HEIGHTENED", risk
         return "CLEAR", risk

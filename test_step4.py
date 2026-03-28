@@ -22,4 +22,3 @@ for variance, z, ema_mean, ema_std in read_stream():
     allocation = resource.allocate(risk)
 
     print(f"{z:>6.2f}  {raw:>10}  {state:>15}  {risk:>5.2f}  {predicted:>8}  {confidence:>5.2f}  {allocation['mode']}")
-s
