@@ -1,6 +1,11 @@
 from collections import deque
 
+
 class ReasoningAgent:
+    """Window voting over recent frames. A single noisy frame cannot fire an
+    alarm -- the signal must persist. This is the structural false-positive
+    defense. Risk = weighted mean of the window; thresholds map risk to state."""
+
     def __init__(self, window_size=3):
         self.window = deque(maxlen=window_size)
         self.weights = {"CLEAR": 0.0, "MOTION": 0.3, "ANOMALY": 1.0}
